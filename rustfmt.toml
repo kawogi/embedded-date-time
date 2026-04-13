@@ -1,0 +1,5 @@
+# ensures the edition will be respected even in cases where cargo isn't used
+edition = "2024"
+
+# prevents unnecessary merge conflicts
+imports_granularity = "Item"

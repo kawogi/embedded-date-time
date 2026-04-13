@@ -1,0 +1,19 @@
+{
+    "rust-analyzer.rustfmt.extraArgs": [
+        "+nightly"
+    ],
+    "cSpell.words": [
+        "arduino",
+        "ascii",
+        "defmt",
+        "idents",
+        "sunday",
+        "supertrait",
+        "unseparated",
+        "upcastable"
+    ],
+    "editor.rulers": [
+        100,
+        120
+    ]
+}
