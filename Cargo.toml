@@ -14,6 +14,7 @@ edition = "2024"
 
 [dependencies]
 defmt = { version = "1", optional = true }
+ufmt = { version = "0.2", optional = true }
 
 [dev-dependencies]
 # used to compare the custom implementation with chrono results in tests
@@ -21,6 +22,7 @@ chrono = { version = "0.4", default-features = false }
 
 [features]
 defmt = ["dep:defmt"]
+ufmt = ["dep:ufmt"]
 
 [lints.rust]
 # more lints can be found in [lints.clippy]

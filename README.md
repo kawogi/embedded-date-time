@@ -12,3 +12,7 @@ This comes with a few limitations:
 - no time zones and node daylight-saving times
 - unspecified behavior for bogus dates and time
 - some formatting decisions might be considered opinionated
+
+## Features
+
+This crate has support for [`defmt`](https://github.com/knurling-rs/defmt) and [`ufmt`](https://github.com/japaric/ufmt) which can be enabled by the features with the respective name.

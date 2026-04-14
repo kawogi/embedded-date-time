@@ -167,6 +167,44 @@ impl defmt::Format for Date {
     }
 }
 
+#[cfg(feature = "ufmt")]
+impl ufmt::uDebug for Date {
+    fn fmt<W>(&self, fmt: &mut ufmt::Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: ufmt::uWrite + ?Sized,
+    {
+        ufmt::uDisplay::fmt(&self, fmt)
+    }
+}
+
+#[cfg(feature = "ufmt")]
+impl ufmt::uDisplay for Date {
+    fn fmt<W>(&self, fmt: &mut ufmt::Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: ufmt::uWrite + ?Sized,
+    {
+        use ufmt::uwrite;
+
+        let Self { year, month, day } = *self;
+
+        uwrite!(fmt, "{}-", year)?;
+
+        if month < 10 {
+            uwrite!(fmt, "0{}-", month)?;
+        } else {
+            uwrite!(fmt, "{}-", month)?;
+        }
+
+        if day < 10 {
+            uwrite!(fmt, "0{}", day)?;
+        } else {
+            uwrite!(fmt, "{}", day)?;
+        }
+
+        Ok(())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     #![expect(clippy::panic, reason = "this is a test")]

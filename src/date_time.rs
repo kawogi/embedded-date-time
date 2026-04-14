@@ -19,33 +19,39 @@ pub struct DateTime {
 }
 
 impl DateTime {
+    /// Create a new `DateTime` from a Date and Time.
+    #[must_use]
+    pub fn new(date: Date, time: Time) -> Self {
+        Self { date, time }
+    }
+
     /// Return the year of the date.
     #[must_use]
-    pub fn year(self) -> u16 {
+    pub fn year(&self) -> u16 {
         self.date.year
     }
 
     /// Return the month of the date [1-12].
     #[must_use]
-    pub fn month(self) -> u8 {
+    pub fn month(&self) -> u8 {
         self.date.month
     }
 
     /// Return the day of the month for this date [1-31].
     #[must_use]
-    pub fn day(self) -> u8 {
+    pub fn day(&self) -> u8 {
         self.date.day
     }
 
     /// Read the hour of the time [0-23].
     #[must_use]
-    pub fn hour(self) -> u8 {
+    pub fn hour(&self) -> u8 {
         self.time.hour
     }
 
     /// Read the minute of the time [0-59].
     #[must_use]
-    pub fn minute(self) -> u8 {
+    pub fn minute(&self) -> u8 {
         self.time.minute
     }
 
@@ -53,7 +59,7 @@ impl DateTime {
     ///
     /// A value of 60 might occur on a leap second.
     #[must_use]
-    pub fn second(self) -> u8 {
+    pub fn second(&self) -> u8 {
         self.time.second
     }
 
@@ -63,7 +69,7 @@ impl DateTime {
     ///
     /// Invalid dates will return arbitrary results or may panic.
     #[must_use]
-    pub fn weekday(self) -> Weekday {
+    pub fn weekday(&self) -> Weekday {
         self.date.weekday()
     }
 }
@@ -84,5 +90,25 @@ impl fmt::Display for DateTime {
 impl defmt::Format for DateTime {
     fn format(&self, fmt: defmt::Formatter<'_>) {
         defmt::write!(fmt, "{} {}", self.date, self.time);
+    }
+}
+
+#[cfg(feature = "ufmt")]
+impl ufmt::uDebug for DateTime {
+    fn fmt<W>(&self, fmt: &mut ufmt::Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: ufmt::uWrite + ?Sized,
+    {
+        ufmt::uDisplay::fmt(&self, fmt)
+    }
+}
+
+#[cfg(feature = "ufmt")]
+impl ufmt::uDisplay for DateTime {
+    fn fmt<W>(&self, fmt: &mut ufmt::Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: ufmt::uWrite + ?Sized,
+    {
+        ufmt::uwrite!(fmt, "{} {}", self.date, self.time)
     }
 }

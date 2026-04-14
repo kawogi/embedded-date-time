@@ -9,8 +9,10 @@
         "idents",
         "sunday",
         "supertrait",
+        "ufmt",
         "unseparated",
-        "upcastable"
+        "upcastable",
+        "uwrite"
     ],
     "editor.rulers": [
         100,

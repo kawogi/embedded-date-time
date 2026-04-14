@@ -34,7 +34,7 @@ impl Time {
     ///
     /// Seconds are permitted to be 60 on a leap second.
     #[must_use]
-    pub fn from_hms_opt(hour: u8, minute: u8, second: u8) -> Option<Self> {
+    pub fn new_checked(hour: u8, minute: u8, second: u8) -> Option<Self> {
         let result = Self::new(hour, minute, second);
         result.is_valid().then_some(result)
     }
@@ -70,5 +70,51 @@ impl defmt::Format for Time {
             self.minute,
             self.second
         );
+    }
+}
+
+#[cfg(feature = "ufmt")]
+impl ufmt::uDebug for Time {
+    fn fmt<W>(&self, fmt: &mut ufmt::Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: ufmt::uWrite + ?Sized,
+    {
+        ufmt::uDisplay::fmt(&self, fmt)
+    }
+}
+
+#[cfg(feature = "ufmt")]
+impl ufmt::uDisplay for Time {
+    fn fmt<W>(&self, fmt: &mut ufmt::Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: ufmt::uWrite + ?Sized,
+    {
+        use ufmt::uwrite;
+
+        let Self {
+            hour,
+            minute,
+            second,
+        } = *self;
+
+        if hour < 10 {
+            uwrite!(fmt, "0{}:", hour)?;
+        } else {
+            uwrite!(fmt, "{}:", hour)?;
+        }
+
+        if minute < 10 {
+            uwrite!(fmt, "0{}:", minute)?;
+        } else {
+            uwrite!(fmt, "{}:", minute)?;
+        }
+
+        if second < 10 {
+            uwrite!(fmt, "0{}", second)?;
+        } else {
+            uwrite!(fmt, "{}", second)?;
+        }
+
+        Ok(())
     }
 }

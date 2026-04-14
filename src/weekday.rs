@@ -140,6 +140,26 @@ impl defmt::Format for Weekday {
     }
 }
 
+#[cfg(feature = "ufmt")]
+impl ufmt::uDebug for Weekday {
+    fn fmt<W>(&self, fmt: &mut ufmt::Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: ufmt::uWrite + ?Sized,
+    {
+        ufmt::uDisplay::fmt(&self, fmt)
+    }
+}
+
+#[cfg(feature = "ufmt")]
+impl ufmt::uDisplay for Weekday {
+    fn fmt<W>(&self, fmt: &mut ufmt::Formatter<'_, W>) -> Result<(), W::Error>
+    where
+        W: ufmt::uWrite + ?Sized,
+    {
+        fmt.write_str(self.as_str())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     #![expect(clippy::panic, clippy::unwrap_used, reason = "this is a test")]
