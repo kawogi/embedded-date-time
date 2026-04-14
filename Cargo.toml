@@ -1,6 +1,6 @@
 [package]
 name = "embedded-date-time"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Kai Giebeler <github@kai.giebeler.de>"]
 description = "Lightweight date and time types to be used on embedded systems."
 license = "MIT OR Apache-2.0"
