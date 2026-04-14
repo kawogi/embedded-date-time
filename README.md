@@ -9,7 +9,7 @@ This comes with a few limitations:
 
 - no sub-second time resolution
 - limited support for years beyond 2000-2171 (see individual method documentation for details)
-- no time zones and node daylight-saving times
+- no time zones and no daylight-saving times
 - unspecified behavior for bogus dates and time
 - some formatting decisions might be considered opinionated
 
